@@ -2,7 +2,7 @@
 
 **One file. Any slicer.**
 
-SlicerLauncher is a free Windows utility by 3DPrintKings for makers who use multiple 3D-printing slicers. Open an STL or 3MF file once, then choose the slicer you want to use. SlicerLauncher can also receive mesh exports from Fusion 360 and pass the file to a configured slicer.
+SlicerLauncher is a free Windows utility published by Nino King under the 3dprintkings brand for makers who use multiple 3D-printing slicers. Open an STL or 3MF file once, then choose the slicer you want to use. SlicerLauncher can also receive mesh exports from Fusion 360 and pass the file to a configured slicer.
 
 ## Status
 
@@ -50,7 +50,7 @@ Third-party product names are used only to describe compatibility. SlicerLaunche
 
 SlicerLauncher does not contain advertising, analytics, tracking, or telemetry. It stores configuration, slicer executable paths, and recent model-file paths locally in the user's AppData profile.
 
-SlicerLauncher does not perform an automatic update check and does not contact a 3DPrintKings or GitHub update endpoint. Official binary updates are intended to be distributed through the Microsoft Store.
+SlicerLauncher does not perform an automatic update check and does not contact a 3dprintkings or GitHub update endpoint. Official binary updates are intended to be distributed through the Microsoft Store.
 
 See [PRIVACY.md](PRIVACY.md) for details.
 
@@ -138,9 +138,11 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
+Copyright © 2026 Nino King · 3dprintkings.
+
 SlicerLauncher source code is licensed under the **GNU General Public License v3.0**. See [LICENSE](LICENSE).
 
-The GPL license does not grant rights to use 3DPrintKings branding in a way that suggests an unofficial build or fork is an official 3DPrintKings release. See [TRADEMARKS.md](TRADEMARKS.md).
+The GPL license does not grant rights to use 3dprintkings branding in a way that suggests an unofficial build or fork is an official 3dprintkings release. See [TRADEMARKS.md](TRADEMARKS.md).
 
 ## Official project
 

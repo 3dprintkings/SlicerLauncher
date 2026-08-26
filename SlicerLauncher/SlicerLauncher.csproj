@@ -11,10 +11,11 @@
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <Company>3DPrintKings</Company>
+    <Authors>Nino King</Authors>
+    <Company>3dprintkings</Company>
     <Product>SlicerLauncher</Product>
     <Description>Launch 3D printing slicers directly from Fusion 360 mesh exports.</Description>
-    <Copyright>Copyright © 2026 3DPrintKings</Copyright>
+    <Copyright>Copyright © 2026 Nino King · 3dprintkings</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

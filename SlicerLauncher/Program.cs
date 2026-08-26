@@ -1649,6 +1649,7 @@ internal sealed class AboutForm : Form
             Font = new Font("Segoe UI", 9.5F),
             ForeColor = BrandAssets.DarkGray,
             AutoSize = false,
+            UseMnemonic = false,
             Width = 540,
             Height = 52,
             Location = new Point(50, 258)
@@ -1665,7 +1666,7 @@ internal sealed class AboutForm : Form
 
         var copyright = new Label
         {
-            Text = "© 2026 3DPrintKings",
+            Text = "© 2026 Nino King · 3dprintkings",
             Font = new Font("Segoe UI", 9F),
             ForeColor = BrandAssets.MediumGray,
             AutoSize = true,

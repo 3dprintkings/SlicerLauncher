@@ -15,7 +15,7 @@ The review did not identify code invoking command shells or scripting hosts such
 
 The previous silent update metadata check and its `HttpClient` request have been removed from the reviewed source.
 
-No automatic 3DPrintKings or GitHub update endpoint is contacted by SlicerLauncher.
+No automatic 3dprintkings or GitHub update endpoint is contacted by SlicerLauncher.
 
 The About window can open `https://www.3dprintkings.ch` in the user's default browser only after a user clicks the website link. No source code for uploading model files, settings, analytics, or telemetry was identified.
 
@@ -57,7 +57,7 @@ The source snapshot contains the following embedded/project assets:
 - `circle_icon.png`
 - `logo_about.png`
 
-They are treated as project/3DPrintKings branding assets. Branding considerations are documented in `TRADEMARKS.md`.
+They are treated as project/3dprintkings branding assets. Branding considerations are documented in `TRADEMARKS.md`.
 
 ## Cleanup performed
 

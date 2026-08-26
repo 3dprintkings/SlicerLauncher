@@ -18,11 +18,11 @@ This information is used locally by SlicerLauncher and is not intentionally uplo
 
 ### Network communication
 
-SlicerLauncher does not perform an automatic update check and does not contact a 3DPrintKings or GitHub update endpoint.
+SlicerLauncher does not perform an automatic update check and does not contact a 3dprintkings or GitHub update endpoint.
 
 The application itself does not upload model files, configured slicer paths, recent-file paths, analytics events, advertising identifiers, or telemetry.
 
-The About window contains a user-initiated link to the 3DPrintKings website. If the user chooses that link, the website is opened in the default browser and the browser's and website's own privacy behaviour applies.
+The About window contains a user-initiated link to the 3dprintkings website. If the user chooses that link, the website is opened in the default browser and the browser's and website's own privacy behaviour applies.
 
 Official binary application updates are intended to be distributed through the Microsoft Store.
 

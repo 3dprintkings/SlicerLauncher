@@ -2,13 +2,15 @@
 
 SlicerLauncher source code is distributed under the GNU General Public License v3.0.
 
-The GPL governs copyright permissions for the covered software. It does not grant trademark rights or permission to present an unofficial fork, modified build, or redistribution as an official 3DPrintKings release.
+The GPL governs copyright permissions for the covered software. It does not grant trademark rights or permission to present an unofficial fork, modified build, or redistribution as an official 3dprintkings release.
 
-## 3DPrintKings branding
+## 3dprintkings branding
 
-The names **3DPrintKings** and **SlicerLauncher**, along with 3DPrintKings logos, visual branding, and other brand identifiers, may be used to truthfully identify the original project and its origin.
+SlicerLauncher is published by Nino King under the **3dprintkings** brand. The 3dprintkings name, logos, and visual branding are not granted under the GPL.
 
-They should not be used in a way that is likely to imply that an unofficial fork, modified build, redistribution, or commercial offering is produced, sponsored, approved, or endorsed by 3DPrintKings when it is not.
+The names **3dprintkings** and **SlicerLauncher**, along with 3dprintkings logos, visual branding, and other brand identifiers, may be used to truthfully identify the original project and its origin.
+
+They should not be used in a way that is likely to imply that an unofficial fork, modified build, redistribution, or commercial offering is produced, sponsored, approved, or endorsed by 3dprintkings when it is not.
 
 Forks and modified distributions should make their independent status clear and should use distinguishable branding where necessary to avoid confusion.
 

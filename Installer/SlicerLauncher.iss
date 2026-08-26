@@ -1,6 +1,6 @@
 #define MyAppName "SlicerLauncher"
 #define MyAppVersion "1.0.0"
-#define MyAppPublisher "3DPrintKings"
+#define MyAppPublisher "Nino King · 3dprintkings"
 #define MyAppURL "https://www.3dprintkings.ch"
 #define MyAppExeName "SlicerLauncher.exe"
 
