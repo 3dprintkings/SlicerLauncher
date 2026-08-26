@@ -1600,8 +1600,8 @@ internal sealed class AboutForm : Form
     {
         Text = "About SlicerLauncher";
         Width = 650;
-        Height = 520;
-        MinimumSize = new Size(600, 500);
+        Height = 570;
+        MinimumSize = new Size(600, 550);
         StartPosition = FormStartPosition.CenterParent;
         BackColor = BrandAssets.LightGray;
         Font = new Font("Segoe UI", 10F);
@@ -1645,24 +1645,40 @@ internal sealed class AboutForm : Form
 
         var description = new Label
         {
-            Text = "A lightweight launcher for sending Fusion 360 mesh exports to the slicer of your choice.",
+            Text = "A free and open-source Windows utility for opening STL & 3MF files with the slicer of your choice, including Fusion 360 Print Utility support.",
             Font = new Font("Segoe UI", 9.5F),
             ForeColor = BrandAssets.DarkGray,
             AutoSize = false,
             Width = 540,
-            Height = 44,
-            Location = new Point(50, 260)
+            Height = 52,
+            Location = new Point(50, 258)
+        };
+
+        var privacy = new Label
+        {
+            Text = "No ads. No tracking. No telemetry.",
+            Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
+            ForeColor = BrandAssets.DarkGray,
+            AutoSize = true,
+            Location = new Point(50, 322)
         };
 
         var copyright = new Label
         {
-            Text = "© 2026 3DPrintKings. All rights reserved.",
+            Text = "© 2026 3DPrintKings",
             Font = new Font("Segoe UI", 9F),
             ForeColor = BrandAssets.MediumGray,
-            AutoSize = false,
-            Width = 360,
-            Height = 24,
-            Location = new Point(50, 318)
+            AutoSize = true,
+            Location = new Point(50, 365)
+        };
+
+        var license = new Label
+        {
+            Text = "Licensed under the GNU GPL v3.0",
+            Font = new Font("Segoe UI", 9F),
+            ForeColor = BrandAssets.MediumGray,
+            AutoSize = true,
+            Location = new Point(50, 391)
         };
 
         var website = new LinkLabel
@@ -1674,11 +1690,28 @@ internal sealed class AboutForm : Form
             VisitedLinkColor = BrandAssets.DarkGray,
             Font = new Font("Segoe UI", 9F, FontStyle.Bold),
             Cursor = Cursors.Hand,
-            Location = new Point(50, 355)
+            Location = new Point(50, 432)
         };
         website.LinkClicked += (_, _) =>
         {
             try { Process.Start(new ProcessStartInfo { FileName = "https://www.3dprintkings.ch", UseShellExecute = true }); }
+            catch { }
+        };
+
+        var source = new LinkLabel
+        {
+            Text = "View source on GitHub",
+            AutoSize = true,
+            LinkColor = BrandAssets.DarkGray,
+            ActiveLinkColor = BrandAssets.Yellow,
+            VisitedLinkColor = BrandAssets.DarkGray,
+            Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+            Cursor = Cursors.Hand,
+            Location = new Point(50, 461)
+        };
+        source.LinkClicked += (_, _) =>
+        {
+            try { Process.Start(new ProcessStartInfo { FileName = "https://github.com/3dprintkings/SlicerLauncher", UseShellExecute = true }); }
             catch { }
         };
 
@@ -1687,8 +1720,11 @@ internal sealed class AboutForm : Form
         Controls.Add(appName);
         Controls.Add(version);
         Controls.Add(description);
+        Controls.Add(privacy);
         Controls.Add(copyright);
+        Controls.Add(license);
         Controls.Add(website);
+        Controls.Add(source);
     }
 }
 
