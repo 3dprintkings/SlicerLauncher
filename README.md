@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="SlicerLauncher/Assets/SlicerLauncher-logo.png" alt="SlicerLauncher rocket logo" width="240" />
+</p>
+
 # SlicerLauncher
 
 **One file. Any slicer.**
@@ -140,9 +144,22 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Copyright © 2026 Nino King · 3dprintkings.
 
-SlicerLauncher source code is licensed under the **GNU General Public License v3.0**. See [LICENSE](LICENSE).
+SlicerLauncher source code and the artwork distributed with this repository are licensed under the **GNU General Public License v3.0**. See [LICENSE](LICENSE).
 
-The GPL license does not grant rights to use 3dprintkings branding in a way that suggests an unofficial build or fork is an official 3dprintkings release. See [TRADEMARKS.md](TRADEMARKS.md).
+The GPL grants copyright permissions, but it does **not** grant trademark or endorsement rights. The names **3dprintkings** and **SlicerLauncher**, the 3dprintkings branding, and the SlicerLauncher rocket logo are brand identifiers associated with the official project. Forks and modified builds must not present themselves in a way that is likely to be confused with an official 3dprintkings release. See [TRADEMARKS.md](TRADEMARKS.md).
+
+## Logo and brand assets
+
+The repository currently uses the approved PNG artwork for the SlicerLauncher visual identity.
+
+The repository contains:
+
+- `SlicerLauncher-logo-master.png` – approved high-resolution raster artwork
+- `SlicerLauncher-logo.png` – optimized PNG used by the app and README
+- `SlicerLauncher.ico` and PNG icon sizes – Windows/application icon assets
+
+
+See [TRADEMARKS.md](TRADEMARKS.md) before using the project names or logos for a fork, redistribution, or modified build.
 
 ## Official project
 

@@ -1,18 +1,41 @@
-# Names, Logos, and Branding
+# Branding and Trademark Notice
 
-SlicerLauncher source code is distributed under the GNU General Public License v3.0.
+Copyright © 2026 Nino King.
 
-The GPL governs copyright permissions for the covered software. It does not grant trademark rights or permission to present an unofficial fork, modified build, or redistribution as an official 3dprintkings release.
+SlicerLauncher is published by Nino King under the **3dprintkings** brand.
 
-## 3dprintkings branding
+## Open-source license and brand rights
 
-SlicerLauncher is published by Nino King under the **3dprintkings** brand. The 3dprintkings name, logos, and visual branding are not granted under the GPL.
+The SlicerLauncher source code and the artwork distributed with this repository are licensed under the GNU General Public License v3.0.
 
-The names **3dprintkings** and **SlicerLauncher**, along with 3dprintkings logos, visual branding, and other brand identifiers, may be used to truthfully identify the original project and its origin.
+The GPL grants copyright permissions for the covered work. It does **not** grant trademark, endorsement, or passing-off rights.
 
-They should not be used in a way that is likely to imply that an unofficial fork, modified build, redistribution, or commercial offering is produced, sponsored, approved, or endorsed by 3dprintkings when it is not.
+The following are brand identifiers associated with the official project:
 
-Forks and modified distributions should make their independent status clear and should use distinguishable branding where necessary to avoid confusion.
+- the name **3dprintkings**
+- the 3dprintkings logos and visual branding
+- the name **SlicerLauncher**
+- the SlicerLauncher rocket logo, including its official PNG artwork and related visual identity
+
+These brand identifiers are not represented here as registered trademarks unless explicitly stated elsewhere.
+
+## Forks and modified distributions
+
+You may exercise the rights granted by the GPL, including copying, modifying, and redistributing the covered work.
+
+However, an unofficial fork, modified build, redistribution, or commercial offering must not be presented in a way that is likely to make users believe it is produced, sponsored, approved, or endorsed by Nino King or 3dprintkings when it is not.
+
+Where necessary to avoid confusion, forks and modified distributions should:
+
+- clearly state that they are unofficial;
+- use a distinguishable product name and/or visual identity; and
+- avoid using the 3dprintkings or SlicerLauncher branding as their own source identifier.
+
+Truthful references to the original project, compatibility, origin, or upstream source are permitted where legally allowed.
+
+## Official builds
+
+Official SlicerLauncher builds are those identified by Nino King / 3dprintkings as official releases. The intended official binary distribution channel is the Microsoft Store once Store publication is complete.
 
 ## Third-party names
 

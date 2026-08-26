@@ -14,12 +14,12 @@
     <Authors>Nino King</Authors>
     <Company>3dprintkings</Company>
     <Product>SlicerLauncher</Product>
-    <Description>Launch 3D printing slicers directly from Fusion 360 mesh exports.</Description>
+    <Description>Free and open-source Windows utility for opening STL and 3MF files with the slicer of your choice, including Fusion 360 Print Utility support.</Description>
     <Copyright>Copyright © 2026 Nino King · 3dprintkings</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\logo_about.png" />
+    <EmbeddedResource Include="Assets\SlicerLauncher-logo.png" />
     <EmbeddedResource Include="Assets\circle_icon.png" />
   </ItemGroup>
 </Project>

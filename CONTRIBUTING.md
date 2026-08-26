@@ -50,4 +50,4 @@ Prefer straightforward C# and small, reviewable changes. Avoid adding a dependen
 
 Do not add third-party logos or other protected assets without confirming that redistribution is permitted. Product names may be used where reasonably necessary to describe compatibility.
 
-Do not use 3dprintkings branding in a way that suggests an unofficial fork is an official release. See [TRADEMARKS.md](TRADEMARKS.md).
+Do not use the 3dprintkings name, SlicerLauncher name, or official logos in a way that suggests an unofficial fork or modified build is an official release. See [TRADEMARKS.md](TRADEMARKS.md).

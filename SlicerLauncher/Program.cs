@@ -1599,9 +1599,9 @@ internal sealed class AboutForm : Form
     public AboutForm()
     {
         Text = "About SlicerLauncher";
-        Width = 650;
-        Height = 570;
-        MinimumSize = new Size(600, 550);
+        Width = 980;
+        Height = 510;
+        MinimumSize = new Size(900, 490);
         StartPosition = FormStartPosition.CenterParent;
         BackColor = BrandAssets.LightGray;
         Font = new Font("Segoe UI", 10F);
@@ -1619,19 +1619,19 @@ internal sealed class AboutForm : Form
 
         var logoBox = new PictureBox
         {
-            Image = BrandAssets.LoadEmbeddedImage("logo_about.png"),
+            Image = BrandAssets.LoadEmbeddedImage("SlicerLauncher-logo.png"),
             SizeMode = PictureBoxSizeMode.Zoom,
-            Location = new Point(50, 112),
-            Size = new Size(220, 38)
+            Location = new Point(48, 132),
+            Size = new Size(150, 150)
         };
 
         var appName = new Label
         {
             Text = "SlicerLauncher",
-            Font = new Font("Segoe UI", 15F, FontStyle.Bold),
+            Font = new Font("Segoe UI", 18F, FontStyle.Bold),
             ForeColor = BrandAssets.DarkGray,
             AutoSize = true,
-            Location = new Point(50, 184)
+            Location = new Point(230, 126)
         };
 
         var version = new Label
@@ -1640,19 +1640,17 @@ internal sealed class AboutForm : Form
             Font = new Font("Segoe UI", 9.5F),
             ForeColor = BrandAssets.MediumGray,
             AutoSize = true,
-            Location = new Point(52, 218)
+            Location = new Point(232, 168)
         };
 
         var description = new Label
         {
-            Text = "A free and open-source Windows utility for opening STL & 3MF files with the slicer of your choice, including Fusion 360 Print Utility support.",
-            Font = new Font("Segoe UI", 9.5F),
+            Text = "A free, open-source Windows utility for opening STL & 3MF files with your slicer of choice, including Fusion 360 support.",
+            Font = new Font("Segoe UI", 9F),
             ForeColor = BrandAssets.DarkGray,
-            AutoSize = false,
+            AutoSize = true,
             UseMnemonic = false,
-            Width = 540,
-            Height = 52,
-            Location = new Point(50, 258)
+            Location = new Point(230, 214)
         };
 
         var privacy = new Label
@@ -1661,25 +1659,16 @@ internal sealed class AboutForm : Form
             Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
             ForeColor = BrandAssets.DarkGray,
             AutoSize = true,
-            Location = new Point(50, 322)
+            Location = new Point(230, 258)
         };
 
         var copyright = new Label
         {
-            Text = "© 2026 Nino King · 3dprintkings",
+            Text = "© 2026 Nino King · 3dprintkings · Licensed under the GNU GPL v3.0",
             Font = new Font("Segoe UI", 9F),
             ForeColor = BrandAssets.MediumGray,
             AutoSize = true,
-            Location = new Point(50, 365)
-        };
-
-        var license = new Label
-        {
-            Text = "Licensed under the GNU GPL v3.0",
-            Font = new Font("Segoe UI", 9F),
-            ForeColor = BrandAssets.MediumGray,
-            AutoSize = true,
-            Location = new Point(50, 391)
+            Location = new Point(230, 305)
         };
 
         var website = new LinkLabel
@@ -1691,7 +1680,7 @@ internal sealed class AboutForm : Form
             VisitedLinkColor = BrandAssets.DarkGray,
             Font = new Font("Segoe UI", 9F, FontStyle.Bold),
             Cursor = Cursors.Hand,
-            Location = new Point(50, 432)
+            Location = new Point(230, 350)
         };
         website.LinkClicked += (_, _) =>
         {
@@ -1708,7 +1697,7 @@ internal sealed class AboutForm : Form
             VisitedLinkColor = BrandAssets.DarkGray,
             Font = new Font("Segoe UI", 9F, FontStyle.Bold),
             Cursor = Cursors.Hand,
-            Location = new Point(50, 461)
+            Location = new Point(230, 380)
         };
         source.LinkClicked += (_, _) =>
         {
@@ -1723,7 +1712,6 @@ internal sealed class AboutForm : Form
         Controls.Add(description);
         Controls.Add(privacy);
         Controls.Add(copyright);
-        Controls.Add(license);
         Controls.Add(website);
         Controls.Add(source);
     }
