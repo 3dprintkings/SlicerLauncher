@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
-using Microsoft.Win32;
 using System.Text.Json;
 using System.Xml.Linq;
 
@@ -12,7 +11,6 @@ internal static class Program
     private static void Main(string[] args)
     {
         ApplicationConfiguration.Initialize();
-        FileAssociationService.RefreshExecutablePathIfRegistered();
         Application.Run(new MainForm(args.Length > 0 ? args[0] : null));
     }
 }
@@ -222,149 +220,6 @@ internal static class SlicerDetectionService
     }
 }
 
-
-internal static class FileAssociationService
-{
-    private const string ProgId = "SlicerLauncher.File";
-    private const string RegisteredAppName = "SlicerLauncher";
-    private const string AppKey = @"Software\SlicerLauncher";
-    private const string CapabilitiesKey = AppKey + @"\Capabilities";
-
-    public static void RefreshExecutablePathIfRegistered()
-    {
-        try
-        {
-            using var registeredApps = Registry.CurrentUser.OpenSubKey(@"Software\RegisteredApplications");
-            if (registeredApps?.GetValue(RegisteredAppName) is null)
-                return;
-
-            using var associations = Registry.CurrentUser.OpenSubKey(CapabilitiesKey + @"\FileAssociations");
-            var registerStl = associations?.GetValue(".stl") is not null;
-            var register3mf = associations?.GetValue(".3mf") is not null;
-
-            if (registerStl || register3mf)
-                WriteApplicationRegistration(registerStl, register3mf);
-        }
-        catch
-        {
-            // Association refresh should never prevent the launcher from opening.
-        }
-    }
-
-    public static bool IsRegistered(string extension)
-    {
-        try
-        {
-            using var key = Registry.CurrentUser.OpenSubKey(
-                $@"Software\Classes\{NormalizeExtension(extension)}\OpenWithProgids");
-            return key?.GetValueNames().Contains(ProgId, StringComparer.OrdinalIgnoreCase) == true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    public static void Apply(bool registerStl, bool register3mf)
-    {
-        SetExtensionRegistration(".stl", registerStl);
-        SetExtensionRegistration(".3mf", register3mf);
-
-        if (!registerStl && !register3mf)
-        {
-            RemoveApplicationRegistration();
-            return;
-        }
-
-        WriteApplicationRegistration(registerStl, register3mf);
-    }
-
-    public static void OpenWindowsDefaultApps()
-    {
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = "ms-settings:defaultapps",
-            UseShellExecute = true
-        });
-    }
-
-    private static void WriteApplicationRegistration(bool registerStl, bool register3mf)
-    {
-        var exePath = Application.ExecutablePath;
-        var quotedExe = Quote(exePath);
-
-        using (var progId = Registry.CurrentUser.CreateSubKey($@"Software\Classes\{ProgId}"))
-        {
-            progId.SetValue("", "3D model file", RegistryValueKind.String);
-            using var icon = progId.CreateSubKey("DefaultIcon");
-            icon.SetValue("", quotedExe + ",0", RegistryValueKind.String);
-            using var command = progId.CreateSubKey(@"shell\open\command");
-            command.SetValue("", quotedExe + " \"%1\"", RegistryValueKind.String);
-        }
-
-        using (var app = Registry.CurrentUser.CreateSubKey(@"Software\Classes\Applications\SlicerLauncher.exe"))
-        {
-            app.SetValue("FriendlyAppName", "SlicerLauncher", RegistryValueKind.String);
-            using var command = app.CreateSubKey(@"shell\open\command");
-            command.SetValue("", quotedExe + " \"%1\"", RegistryValueKind.String);
-            using var supported = app.CreateSubKey("SupportedTypes");
-            supported.DeleteValue(".stl", false);
-            supported.DeleteValue(".3mf", false);
-            if (registerStl) supported.SetValue(".stl", "", RegistryValueKind.String);
-            if (register3mf) supported.SetValue(".3mf", "", RegistryValueKind.String);
-        }
-
-        using (var capabilities = Registry.CurrentUser.CreateSubKey(CapabilitiesKey))
-        {
-            capabilities.SetValue("ApplicationName", "SlicerLauncher", RegistryValueKind.String);
-            capabilities.SetValue(
-                "ApplicationDescription",
-                "Open STL and 3MF files with the slicer of your choice.",
-                RegistryValueKind.String);
-
-            using var associations = capabilities.CreateSubKey("FileAssociations");
-            associations.DeleteValue(".stl", false);
-            associations.DeleteValue(".3mf", false);
-            if (registerStl) associations.SetValue(".stl", ProgId, RegistryValueKind.String);
-            if (register3mf) associations.SetValue(".3mf", ProgId, RegistryValueKind.String);
-        }
-
-        using var registeredApps = Registry.CurrentUser.CreateSubKey(@"Software\RegisteredApplications");
-        registeredApps.SetValue(RegisteredAppName, CapabilitiesKey, RegistryValueKind.String);
-    }
-
-    private static void RemoveApplicationRegistration()
-    {
-        using (var registeredApps = Registry.CurrentUser.CreateSubKey(@"Software\RegisteredApplications"))
-            registeredApps.DeleteValue(RegisteredAppName, false);
-
-        Registry.CurrentUser.DeleteSubKeyTree(AppKey, false);
-        Registry.CurrentUser.DeleteSubKeyTree($@"Software\Classes\{ProgId}", false);
-        Registry.CurrentUser.DeleteSubKeyTree(@"Software\Classes\Applications\SlicerLauncher.exe", false);
-    }
-
-    private static void SetExtensionRegistration(string extension, bool enabled)
-    {
-        extension = NormalizeExtension(extension);
-
-        using var key = Registry.CurrentUser.CreateSubKey($@"Software\Classes\{extension}\OpenWithProgids");
-
-        if (enabled)
-            key.SetValue(ProgId, Array.Empty<byte>(), RegistryValueKind.None);
-        else
-            key.DeleteValue(ProgId, false);
-    }
-
-    private static string NormalizeExtension(string extension)
-    {
-        if (string.IsNullOrWhiteSpace(extension))
-            throw new ArgumentException("File extension is required.", nameof(extension));
-
-        return extension.StartsWith('.') ? extension.ToLowerInvariant() : "." + extension.ToLowerInvariant();
-    }
-
-    private static string Quote(string value) => "\"" + value.Replace("\"", "\\\"") + "\"";
-}
 
 internal static class BrandAssets
 {
@@ -953,8 +808,6 @@ internal sealed class SettingsForm : Form
     private readonly Label _modeLabel = new();
     private readonly Button _saveButton = new();
     private readonly Button _removeButton = new();
-    private readonly CheckBox _stlAssociation = new();
-    private readonly CheckBox _threeMfAssociation = new();
     private readonly ComboBox _defaultSlicer = new();
     private readonly CheckBox _autoLaunch = new();
     private readonly NumericUpDown _countdownSeconds = new();
@@ -984,8 +837,8 @@ internal sealed class SettingsForm : Form
     {
         Text = "SlicerLauncher - Settings";
         Width = 900;
-        Height = 865;
-        MinimumSize = new Size(780, 800);
+        Height = 735;
+        MinimumSize = new Size(780, 700);
         StartPosition = FormStartPosition.CenterParent;
         BackColor = BrandAssets.LightGray;
         Font = new Font("Segoe UI", 10F);
@@ -1175,68 +1028,6 @@ internal sealed class SettingsForm : Form
         autoGroup.Controls.Add(countdownRow);
         autoGroup.Controls.Add(saveAutoButton);
 
-        var associationGroup = new GroupBox
-        {
-            Text = "File Associations",
-            Location = new Point(345, 605),
-            Size = new Size(500, 145),
-            Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
-        };
-
-        _stlAssociation.Text = "Register SlicerLauncher for .STL files";
-        _stlAssociation.AutoSize = true;
-        _stlAssociation.Location = new Point(18, 28);
-        _stlAssociation.Checked = FileAssociationService.IsRegistered(".stl");
-
-        _threeMfAssociation.Text = "Register SlicerLauncher for .3MF files";
-        _threeMfAssociation.AutoSize = true;
-        _threeMfAssociation.Location = new Point(18, 55);
-        _threeMfAssociation.Checked = FileAssociationService.IsRegistered(".3mf");
-
-        var applyAssociationsButton = new Button
-        {
-            Text = "Apply",
-            Location = new Point(18, 82),
-            Size = new Size(100, 32),
-            BackColor = BrandAssets.Yellow,
-            ForeColor = BrandAssets.DarkGray,
-            FlatStyle = FlatStyle.Flat,
-            Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-            Cursor = Cursors.Hand
-        };
-        applyAssociationsButton.FlatAppearance.BorderSize = 0;
-        applyAssociationsButton.Click += (_, _) => ApplyFileAssociations();
-
-        var defaultAppsButton = new Button
-        {
-            Text = "Windows Default Apps",
-            Location = new Point(130, 82),
-            Size = new Size(165, 32),
-            BackColor = Color.White,
-            ForeColor = BrandAssets.DarkGray,
-            FlatStyle = FlatStyle.Flat,
-            Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-            Cursor = Cursors.Hand
-        };
-        defaultAppsButton.FlatAppearance.BorderSize = 1;
-        defaultAppsButton.FlatAppearance.BorderColor = BrandAssets.BorderGray;
-        defaultAppsButton.Click += (_, _) => OpenWindowsDefaultApps();
-
-        var associationNote = new Label
-        {
-            Text = "Registration adds SlicerLauncher as an available app. Windows controls which app is the default.",
-            AutoSize = false,
-            ForeColor = BrandAssets.MediumGray,
-            Font = new Font("Segoe UI", 8.3F),
-            Location = new Point(310, 28),
-            Size = new Size(175, 82)
-        };
-
-        associationGroup.Controls.Add(_stlAssociation);
-        associationGroup.Controls.Add(_threeMfAssociation);
-        associationGroup.Controls.Add(applyAssociationsButton);
-        associationGroup.Controls.Add(defaultAppsButton);
-        associationGroup.Controls.Add(associationNote);
 
         var footer = new Panel { Dock = DockStyle.Bottom, Height = 90, BackColor = Color.White };
         var closeButton = new Button
@@ -1270,7 +1061,6 @@ internal sealed class SettingsForm : Form
         Controls.Add(_saveButton);
         Controls.Add(_removeButton);
         Controls.Add(autoGroup);
-        Controls.Add(associationGroup);
         Controls.Add(footer);
     }
 
@@ -1396,47 +1186,6 @@ internal sealed class SettingsForm : Form
             MessageBoxIcon.Information);
     }
 
-    private void ApplyFileAssociations()
-    {
-        try
-        {
-            FileAssociationService.Apply(_stlAssociation.Checked, _threeMfAssociation.Checked);
-
-            var enabled = new List<string>();
-            if (_stlAssociation.Checked) enabled.Add(".STL");
-            if (_threeMfAssociation.Checked) enabled.Add(".3MF");
-
-            MessageBox.Show(
-                enabled.Count > 0
-                    ? "SlicerLauncher is now registered for " + string.Join(" and ", enabled) +
-                      " files. You can select it from Open with or set it as the default app in Windows."
-                    : "SlicerLauncher file associations were removed.",
-                "File Associations",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(
-                "The file associations could not be updated.\r\n\r\n" + ex.Message,
-                "File Association Error",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-        }
-    }
-
-    private void OpenWindowsDefaultApps()
-    {
-        try { FileAssociationService.OpenWindowsDefaultApps(); }
-        catch (Exception ex)
-        {
-            MessageBox.Show(
-                "Windows Default Apps could not be opened.\r\n\r\n" + ex.Message,
-                "Error",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-        }
-    }
 
     private void Browse()
     {
@@ -1574,16 +1323,20 @@ internal sealed class HelpForm : Form
         };
         var pathTitle = new Label
         {
-            Text = "This installation",
+            Text = "Fusion 360 executable",
             Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
             ForeColor = BrandAssets.MediumGray,
             AutoSize = true,
             Location = new Point(34, 425)
         };
+        var fusionAliasPath = System.IO.Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "Microsoft", "WindowsApps", "SlicerLauncher.exe");
+
         var executablePath = new TextBox
         {
             ReadOnly = true,
-            Text = Application.ExecutablePath,
+            Text = fusionAliasPath,
             Location = new Point(34, 452),
             Width = 610,
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
@@ -1592,8 +1345,8 @@ internal sealed class HelpForm : Form
         {
             Text = "If Custom is not available, make sure Preparation Type is set to Print Utility.\n\n" +
                    "Fusion 360 normally remembers the selected custom application for future exports.\n\n" +
-                   "Tip: In Settings > File Associations, you can also register SlicerLauncher for STL and 3MF files. " +
-                   "Then you can open model files directly from Windows and choose your slicer.\n\n" +
+                   "The Microsoft Store installation registers SlicerLauncher with Windows for STL and 3MF files. " +
+                   "You can choose SlicerLauncher from Open with or set it as the default app in Windows.\n\n" +
                    "Automatic Launch can open a configured default slicer after a countdown. Press Stop or choose another slicer to cancel it.",
             Font = new Font("Segoe UI", 9F),
             ForeColor = BrandAssets.MediumGray,
