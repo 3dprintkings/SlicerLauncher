@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>SlicerLauncher</AssemblyName>
+    <RootNamespace>SlicerLauncher</RootNamespace>
+    <ApplicationIcon>Assets\SlicerLauncher.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Company>3DPrintKings</Company>
+    <Product>SlicerLauncher</Product>
+    <Description>Launch 3D printing slicers directly from Fusion 360 mesh exports.</Description>
+    <Copyright>Copyright © 2026 3DPrintKings</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\logo_about.png" />
+    <EmbeddedResource Include="Assets\circle_icon.png" />
+  </ItemGroup>
+</Project>
