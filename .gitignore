@@ -39,3 +39,7 @@ Desktop.ini
 # Local temporary files
 *.tmp
 *.log
+
+AppPackages/
+BundleArtifacts/
+*.assets.cache
