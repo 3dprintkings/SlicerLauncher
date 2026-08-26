@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 using Microsoft.Win32;
 using System.Text.Json;
@@ -1038,7 +1038,7 @@ internal sealed class SettingsForm : Form
 
         var moveUpButton = new Button
         {
-            Text = "↑ Up",
+            Text = "\u2191  Up",
             Location = new Point(30, 468),
             Size = new Size(125, 34),
             BackColor = Color.White,
@@ -1053,7 +1053,7 @@ internal sealed class SettingsForm : Form
 
         var moveDownButton = new Button
         {
-            Text = "↓ Down",
+            Text = "\u2193  Down",
             Location = new Point(175, 468),
             Size = new Size(125, 34),
             BackColor = Color.White,
@@ -1095,7 +1095,7 @@ internal sealed class SettingsForm : Form
         {
             Text = "Automatic Launch",
             Location = new Point(345, 430),
-            Size = new Size(500, 145),
+            Size = new Size(500, 165),
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
         };
 
@@ -1108,14 +1108,52 @@ internal sealed class SettingsForm : Form
         _autoLaunch.AutoSize = true;
         _autoLaunch.Location = new Point(18, 68);
         _autoLaunch.Checked = _settings.AutoLaunchDefault;
+        var countdownRow = new TableLayoutPanel
+        {
+            Location = new Point(18, 98),
+            Size = new Size(320, 40),
+            ColumnCount = 3,
+            RowCount = 1,
+            GrowStyle = TableLayoutPanelGrowStyle.FixedSize,
+            Margin = Padding.Empty,
+            Padding = Padding.Empty,
+            BackColor = Color.Transparent
+        };
+        countdownRow.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
+        countdownRow.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
+        countdownRow.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
+        countdownRow.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 
-        var countdownLabel = new Label { Text = "Countdown", AutoSize = true, Location = new Point(292, 69) };
+        var countdownLabel = new Label
+        {
+            Text = "Countdown",
+            AutoSize = false,
+            Dock = DockStyle.Fill,
+            TextAlign = ContentAlignment.MiddleLeft,
+            Margin = Padding.Empty
+        };
+
         _countdownSeconds.Minimum = 1;
         _countdownSeconds.Maximum = 30;
         _countdownSeconds.Value = Math.Clamp(_settings.CountdownSeconds, 1, 30);
-        _countdownSeconds.Location = new Point(372, 65);
-        _countdownSeconds.Width = 55;
-        var secLabel = new Label { Text = "sec", AutoSize = true, Location = new Point(433, 69) };
+        _countdownSeconds.AutoSize = false;
+        _countdownSeconds.Size = new Size(70, 28);
+        _countdownSeconds.Anchor = AnchorStyles.Left;
+        _countdownSeconds.TextAlign = HorizontalAlignment.Center;
+        _countdownSeconds.Margin = new Padding(0, 4, 10, 0);
+
+        var secLabel = new Label
+        {
+            Text = "seconds",
+            AutoSize = false,
+            Dock = DockStyle.Fill,
+            TextAlign = ContentAlignment.MiddleLeft,
+            Margin = Padding.Empty
+        };
+
+        countdownRow.Controls.Add(countdownLabel, 0, 0);
+        countdownRow.Controls.Add(_countdownSeconds, 1, 0);
+        countdownRow.Controls.Add(secLabel, 2, 0);
 
         var saveAutoButton = new Button
         {
@@ -1134,15 +1172,13 @@ internal sealed class SettingsForm : Form
         autoGroup.Controls.Add(defaultLabel);
         autoGroup.Controls.Add(_defaultSlicer);
         autoGroup.Controls.Add(_autoLaunch);
-        autoGroup.Controls.Add(countdownLabel);
-        autoGroup.Controls.Add(_countdownSeconds);
-        autoGroup.Controls.Add(secLabel);
+        autoGroup.Controls.Add(countdownRow);
         autoGroup.Controls.Add(saveAutoButton);
 
         var associationGroup = new GroupBox
         {
             Text = "File Associations",
-            Location = new Point(345, 590),
+            Location = new Point(345, 605),
             Size = new Size(500, 145),
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
         };
@@ -1607,7 +1643,13 @@ internal sealed class AboutForm : Form
         Font = new Font("Segoe UI", 10F);
         Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-        var header = new Panel { Dock = DockStyle.Top, Height = 86, BackColor = BrandAssets.DarkGray };
+        var header = new Panel
+        {
+            Dock = DockStyle.Top,
+            Height = 86,
+            BackColor = BrandAssets.DarkGray
+        };
+
         header.Controls.Add(new Label
         {
             Text = "ABOUT",
@@ -1617,12 +1659,25 @@ internal sealed class AboutForm : Form
             Location = new Point(30, 24)
         });
 
+        var aboutLogo = BrandAssets.LoadEmbeddedImage("SlicerLauncher-logo.png");
+        if (aboutLogo is null)
+        {
+            try
+            {
+                aboutLogo = Icon.ExtractAssociatedIcon(Application.ExecutablePath)?.ToBitmap();
+            }
+            catch
+            {
+                aboutLogo = null;
+            }
+        }
+
         var logoBox = new PictureBox
         {
-            Image = BrandAssets.LoadEmbeddedImage("SlicerLauncher-logo.png"),
+            Image = aboutLogo,
             SizeMode = PictureBoxSizeMode.Zoom,
-            Location = new Point(48, 132),
-            Size = new Size(150, 150)
+            Location = new Point(48, 126),
+            Size = new Size(160, 160)
         };
 
         var appName = new Label
@@ -1631,7 +1686,7 @@ internal sealed class AboutForm : Form
             Font = new Font("Segoe UI", 18F, FontStyle.Bold),
             ForeColor = BrandAssets.DarkGray,
             AutoSize = true,
-            Location = new Point(230, 126)
+            Location = new Point(235, 126)
         };
 
         var version = new Label
@@ -1640,7 +1695,7 @@ internal sealed class AboutForm : Form
             Font = new Font("Segoe UI", 9.5F),
             ForeColor = BrandAssets.MediumGray,
             AutoSize = true,
-            Location = new Point(232, 168)
+            Location = new Point(237, 168)
         };
 
         var description = new Label
@@ -1648,9 +1703,10 @@ internal sealed class AboutForm : Form
             Text = "A free, open-source Windows utility for opening STL & 3MF files with your slicer of choice, including Fusion 360 support.",
             Font = new Font("Segoe UI", 9F),
             ForeColor = BrandAssets.DarkGray,
-            AutoSize = true,
+            AutoSize = false,
             UseMnemonic = false,
-            Location = new Point(230, 214)
+            Location = new Point(235, 210),
+            Size = new Size(690, 42)
         };
 
         var privacy = new Label
@@ -1659,16 +1715,16 @@ internal sealed class AboutForm : Form
             Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
             ForeColor = BrandAssets.DarkGray,
             AutoSize = true,
-            Location = new Point(230, 258)
+            Location = new Point(235, 265)
         };
 
         var copyright = new Label
         {
-            Text = "© 2026 Nino King · 3dprintkings · Licensed under the GNU GPL v3.0",
+            Text = "\u00A9 2026 Nino King \u00B7 3dprintkings \u00B7 Licensed under the GNU GPL v3.0",
             Font = new Font("Segoe UI", 9F),
             ForeColor = BrandAssets.MediumGray,
             AutoSize = true,
-            Location = new Point(230, 305)
+            Location = new Point(235, 310)
         };
 
         var website = new LinkLabel
@@ -1680,11 +1736,18 @@ internal sealed class AboutForm : Form
             VisitedLinkColor = BrandAssets.DarkGray,
             Font = new Font("Segoe UI", 9F, FontStyle.Bold),
             Cursor = Cursors.Hand,
-            Location = new Point(230, 350)
+            Location = new Point(235, 354)
         };
         website.LinkClicked += (_, _) =>
         {
-            try { Process.Start(new ProcessStartInfo { FileName = "https://www.3dprintkings.ch", UseShellExecute = true }); }
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://www.3dprintkings.ch",
+                    UseShellExecute = true
+                });
+            }
             catch { }
         };
 
@@ -1697,11 +1760,18 @@ internal sealed class AboutForm : Form
             VisitedLinkColor = BrandAssets.DarkGray,
             Font = new Font("Segoe UI", 9F, FontStyle.Bold),
             Cursor = Cursors.Hand,
-            Location = new Point(230, 380)
+            Location = new Point(235, 384)
         };
         source.LinkClicked += (_, _) =>
         {
-            try { Process.Start(new ProcessStartInfo { FileName = "https://github.com/3dprintkings/SlicerLauncher", UseShellExecute = true }); }
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://github.com/3dprintkings/SlicerLauncher",
+                    UseShellExecute = true
+                });
+            }
             catch { }
         };
 
@@ -1725,3 +1795,4 @@ internal static class ControlExtensions
         return value;
     }
 }
+

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppInstaller
+	Uri="file:///C:/SlicerLauncher/TestInstaller/SlicerLauncher.Package_x64.appinstaller"
+	Version="1.0.0.0" xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2">
+	<MainPackage
+		Name="NinoKing3dprintkings.SlicerLauncher"
+		Version="1.0.0.0"
+		Publisher="CN=Nino King · 3dprintkings"
+		Uri="file:///C:/SlicerLauncher/TestInstaller/SlicerLauncher.Package_1.0.0.0_x64_Test/SlicerLauncher.Package_1.0.0.0_x64.msix"
+		ProcessorArchitecture="x64" />
+	<UpdateSettings>
+		<OnLaunch
+			HoursBetweenUpdateChecks="0" />
+	</UpdateSettings>
+</AppInstaller>
