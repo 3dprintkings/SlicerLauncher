@@ -354,7 +354,7 @@ internal sealed class MainForm : Form
             Location = new Point(35, 24)
         };
 
-        _versionLabel.Text = "v1.1.1";
+        _versionLabel.Text = "v1.1.2";
         _versionLabel.AutoSize = true;
         _versionLabel.ForeColor = Color.Gainsboro;
         _versionLabel.Font = new Font("Segoe UI", 8.5F);
@@ -2014,7 +2014,7 @@ internal sealed class AboutForm : Form
 
         var version = new Label
         {
-            Text = "Version 1.1.1",
+            Text = "Version 1.1.2",
             Font = new Font("Segoe UI", 9.5F),
             ForeColor = BrandAssets.MediumGray,
             AutoSize = true,

@@ -11,7 +11,7 @@
 	<Identity
 	  Name="NinoKing3dprintkings.SlicerLauncher"
 	  Publisher="CN=52C0D1FB-456E-4511-82B0-0061A892AE57"
-	  Version="1.1.1.0" />
+	  Version="1.1.2.0" />
 
 	<mp:PhoneIdentity
 	  PhoneProductId="00000000-0000-0000-0000-000000000000"

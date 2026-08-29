@@ -14,9 +14,9 @@
     <DebugSymbols>false</DebugSymbols>
     <AssemblyName>SlicerLauncher.Fusion</AssemblyName>
     <RootNamespace>SlicerLauncher.Fusion</RootNamespace>
-    <Version>1.1.1</Version>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
+    <Version>1.1.2</Version>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
+    <FileVersion>1.1.2.0</FileVersion>
     <Authors>Nino King</Authors>
     <Company>3dprintkings</Company>
     <Product>SlicerLauncher Fusion Helper</Product>
