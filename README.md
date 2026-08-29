@@ -2,218 +2,134 @@
 
 **One file. Any slicer.**
 
-SlicerLauncher is a free and open-source Windows utility for makers who use multiple 3D-printing slicers.
+SlicerLauncher is a free, open-source Windows utility by 3dprintkings for makers who use multiple 3D-printing slicers. Open an STL or 3MF file with SlicerLauncher, then choose the slicer you want to use. SlicerLauncher can also receive mesh exports from Autodesk Fusion 360.
 
-Open STL and 3MF files with SlicerLauncher, or send models directly from Fusion 360. Then choose the slicer you want to use, or let your preferred slicer launch automatically after a countdown you set.
+## Current release
 
-## Get SlicerLauncher
-
-The official version of SlicerLauncher is distributed through the Microsoft Store.
-
-**[Get SlicerLauncher on the Microsoft Store](https://apps.microsoft.com/detail/9mz8zlfmxrrl)**
-
-Official pre-built binaries are distributed through the Microsoft Store only.
-
-## Status
-
-- Version: **1.0.0**
+- Version: **1.1.0**
 - Framework: **.NET 8 / Windows Forms**
-- Platform: **Windows x64**
+- Target platform: **Windows x64**
 - License: **GNU General Public License v3.0**
-- Free to use
-- Open source
+- Official binary distribution: **Microsoft Store**
 - No advertising
-- No analytics
-- No tracking
-- No telemetry
-- Updates distributed through the Microsoft Store
+- No analytics, tracking, or telemetry
 
-## Why SlicerLauncher?
+Microsoft Store:
+https://apps.microsoft.com/detail/9mz8zlfmxrrl
 
-Many makers use different slicers for different printers and projects.
+## What's new in 1.1.0
 
-STL and 3MF files are normally associated with one application in Windows, while workflows such as Fusion 360 may also require choosing a specific Print Utility.
-
-SlicerLauncher provides one simple entry point.
-
-You can:
-
-- open an STL or 3MF file with SlicerLauncher
-- send a model directly from Fusion 360
-- choose which configured slicer should open the file
-- configure a preferred slicer
-- optionally launch that slicer automatically after a countdown you set
-- stop the countdown at any time and choose another slicer
+- Redesigned **Manage Slicers** workflow
+- Drag-and-drop slicer ordering
+- The first Slicer in the list is the default
+- Optional automatic launch of the default Slicer after a configurable countdown
+- Duplicate slicer names and executable paths are prevented
+- Improved Add/Edit Slicer dialogs
+- Improved Fusion 360 setup help
+- Updated application and About branding
+- Flashforge **Flash Studio** automatic detection added
+- UI and layout refinements throughout the application
 
 ## Features
 
-- Open STL and 3MF files with the slicer of your choice
-- Fusion 360 Print Utility integration
-- Automatic detection of popular slicers
-- Add custom slicers manually
-- Sort and configure your slicer list
-- Configurable default slicer
+- Open STL and 3MF files with a Slicer of your choice
+- Receive mesh files from Fusion 360
+- Automatic detection of supported Slicers
+- Add custom Slicers manually
+- Drag and drop to reorder configured Slicers
+- First Slicer in the list acts as the default
 - Optional automatic launch with adjustable countdown
-- Stop the countdown and choose another slicer
+- Stop the countdown and choose another Slicer
 - Recent files list
-- Windows integration for STL and 3MF files
-- Local per-user settings
-- Microsoft Store installation and updates
+- Microsoft Store / MSIX file association support
+- Settings stored locally in the current user's AppData profile
 
-## Automatically detected slicers
+## Automatically detected Slicers
 
-SlicerLauncher currently detects common installations of:
+The current version detects common installations of:
 
 - Bambu Studio
 - ELEGOO Slicer
 - OrcaSlicer
 - PrusaSlicer
 - Creality Print
+- Flashforge Flash Studio
 
-Other slicers can be added manually by selecting their executable.
+Other Slicers can be added manually by selecting their executable.
 
-Third-party product names are used only to describe compatibility.
-
-SlicerLauncher is an independent project and is not affiliated with, endorsed by, or sponsored by Autodesk, Bambu Lab, Prusa Research, ELEGOO, Creality, or other third-party software vendors unless explicitly stated otherwise.
-
-See [TRADEMARKS.md](TRADEMARKS.md) for details.
-
-## Fusion 360
-
-SlicerLauncher can be configured as a custom Print Utility in Fusion 360.
-
-The Microsoft Store installation provides the execution alias:
-
-```text
-SlicerLauncher.exe
-```
-
-The corresponding WindowsApps path is typically:
-
-```text
-%LOCALAPPDATA%\Microsoft\WindowsApps\SlicerLauncher.exe
-```
-
-This allows Fusion 360 to send exported mesh files to SlicerLauncher.
-
-SlicerLauncher then lets you select the slicer you want to use, or automatically launches your configured default slicer after the countdown you have set.
-
-## Windows file integration
-
-The Microsoft Store package registers SlicerLauncher as an application capable of opening:
-
-- `.stl`
-- `.3mf`
-
-Windows users remain in control of their default application choices.
-
-SlicerLauncher does not force itself to become the Windows default application.
-
-## Settings
-
-Settings are stored locally in:
-
-```text
-%APPDATA%\SlicerLauncher\settings.json
-```
-
-Stored information can include:
-
-- configured slicer names
-- slicer executable paths
-- slicer order
-- default slicer selection
-- automatic-launch preference
-- countdown duration
-- recent model-file paths
-
-The application can also migrate the older `config.xml` format if present.
-
-## Privacy
-
-SlicerLauncher does not contain:
-
-- advertising
-- analytics
-- tracking
-- telemetry
-
-Configuration and recent-file information are stored locally on the user's computer.
-
-SlicerLauncher does not perform a custom automatic update check and does not contact a 3dprintkings or GitHub update endpoint for updates.
-
-Official binary updates are distributed through the Microsoft Store.
-
-See [PRIVACY.md](PRIVACY.md) for details.
-
-## Open source
-
-The complete source code is available in this repository.
-
-The source repository is provided for transparency, development, review, modification and contributions.
-
-Official pre-built SlicerLauncher binaries are distributed through the Microsoft Store.
+Third-party product names are used only to describe compatibility. SlicerLauncher is not affiliated with or endorsed by those vendors unless explicitly stated otherwise. See [TRADEMARKS.md](TRADEMARKS.md).
 
 ## Build from source
 
 ### Requirements
 
-- Windows 10 or Windows 11
+- Windows 10 or Windows 11 x64
 - .NET 8 SDK
 
-Clone the repository and build the application from the repository root.
-
-For example:
+From PowerShell:
 
 ```powershell
-dotnet restore .\SlicerLauncher\SlicerLauncher.csproj
-dotnet build .\SlicerLauncher\SlicerLauncher.csproj -c Release -r win-x64
+cd .\SlicerLauncher
+dotnet build -c Release -r win-x64
 ```
 
-The repository also contains the Windows packaging project used for the Microsoft Store version:
+The compiled application is created under:
 
 ```text
-SlicerLauncher.Package
+SlicerLauncher\bin\Release\net8.0-windows\win-x64\
 ```
 
-Generated build and packaging artifacts are intentionally excluded from the repository.
+The official distributed binary is the Microsoft Store version.
+
+## Fusion 360
+
+The Microsoft Store package registers the execution alias:
+
+```text
+%LOCALAPPDATA%\Microsoft\WindowsApps\SlicerLauncher.exe
+```
+
+In Fusion 360:
+
+1. Choose **Save as Mesh**.
+2. Set **Preparation Type** to **Print Utility**.
+3. Set **Application** to **Custom**.
+4. Select the SlicerLauncher execution alias shown above.
+5. Choose STL or 3MF and continue the export.
+
+## Settings
+
+Settings are stored in:
+
+```text
+%APPDATA%\SlicerLauncher\settings.json
+```
+
+The application can also migrate the older `config.xml` format if present.
+
+Stored information can include configured Slicer names and executable paths, default/automatic-launch settings, countdown duration, and recent model-file paths.
+
+## Privacy
+
+SlicerLauncher works locally and contains no advertising, analytics, tracking, or telemetry. It does not upload model files or settings.
+
+See [PRIVACY.md](PRIVACY.md).
 
 ## Security
 
-Please do not disclose suspected security vulnerabilities in a public issue before they have been reviewed.
-
-See [SECURITY.md](SECURITY.md).
+Please report suspected security vulnerabilities privately before opening a public issue. See [SECURITY.md](SECURITY.md).
 
 ## Contributing
 
-Contributions are welcome.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-Copyright © 2026 Nino King · 3dprintkings
+SlicerLauncher source code is licensed under the **GNU General Public License v3.0**. See [LICENSE](LICENSE).
 
-SlicerLauncher is licensed under the **GNU General Public License v3.0**.
+The GPL does not grant trademark rights or permission to represent unofficial builds as official 3dprintkings releases. See [TRADEMARKS.md](TRADEMARKS.md).
 
-See [LICENSE](LICENSE).
+## Official project
 
-The GPL grants copyright permissions, but it does not grant trademark or endorsement rights.
-
-The names **3dprintkings** and **SlicerLauncher**, the associated branding, and the SlicerLauncher rocket logo are identifiers of the official project. Forks and modified builds must not present themselves in a way that is likely to be confused with an official 3dprintkings release.
-
-See [TRADEMARKS.md](TRADEMARKS.md).
-
-## Logo and brand assets
-
-The repository contains the approved SlicerLauncher visual assets used by the project, including PNG and Windows icon artwork.
-
-Use of the source code under the GPL does not automatically grant permission to represent a fork or modified version as an official 3dprintkings product.
-
-See [TRADEMARKS.md](TRADEMARKS.md) before using the project names or logos for redistribution or modified builds.
-
-## Official links
-
-- **Microsoft Store:** https://apps.microsoft.com/detail/9mz8zlfmxrrl
-- **Website:** https://www.3dprintkings.ch/
-- **Source code:** https://github.com/3dprintkings/SlicerLauncher
+Website: https://www.3dprintkings.ch
+GitHub: https://github.com/3dprintkings/SlicerLauncher
