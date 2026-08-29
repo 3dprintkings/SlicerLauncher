@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -10,14 +10,14 @@
     <AssemblyName>SlicerLauncher</AssemblyName>
     <RootNamespace>SlicerLauncher</RootNamespace>
     <ApplicationIcon>Assets\SlicerLauncher.ico</ApplicationIcon>
-    <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.1</Version>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
     <Authors>Nino King</Authors>
     <Company>3dprintkings</Company>
     <Product>SlicerLauncher</Product>
     <Description>Free and open-source Windows utility for opening STL and 3MF files with the Slicer of your choice, including Fusion 360 Print Utility support.</Description>
-    <Copyright>Copyright © 2026 Nino King · 3dprintkings</Copyright>
+    <Copyright>Copyright Â© 2026 Nino King Â· 3dprintkings</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,3 +25,5 @@
     <EmbeddedResource Include="Assets\circle_icon.png" />
   </ItemGroup>
 </Project>
+
+

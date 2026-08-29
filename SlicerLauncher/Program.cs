@@ -354,7 +354,7 @@ internal sealed class MainForm : Form
             Location = new Point(35, 24)
         };
 
-        _versionLabel.Text = "v1.1.0";
+        _versionLabel.Text = "v1.1.1";
         _versionLabel.AutoSize = true;
         _versionLabel.ForeColor = Color.Gainsboro;
         _versionLabel.Font = new Font("Segoe UI", 8.5F);
@@ -1714,105 +1714,249 @@ internal sealed class EditSlicerForm : Form
 
 internal sealed class HelpForm : Form
 {
+    private readonly string _installDirectory = System.IO.Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "Programs",
+        "SlicerLauncher");
+
+    private string InstalledBridgePath => System.IO.Path.Combine(
+        _installDirectory,
+        "SlicerLauncher.Fusion.exe");
+
+    private static string SourceBridgePath => System.IO.Path.Combine(
+        AppContext.BaseDirectory,
+        "SlicerLauncher.Fusion.exe");
+
     public HelpForm()
     {
         Text = "How to use in Fusion 360";
-        Width = 720;
-        Height = 550;
-        MinimumSize = new Size(650, 500);
+        Width = 780;
+        Height = 590;
+        MinimumSize = new Size(720, 560);
         StartPosition = FormStartPosition.CenterParent;
         BackColor = BrandAssets.LightGray;
         Font = new Font("Segoe UI", 10F);
         Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-        var header = new Panel { Dock = DockStyle.Top, Height = 82, BackColor = BrandAssets.DarkGray };
+        var header = new Panel { Dock = DockStyle.Top, Height = 76, BackColor = BrandAssets.DarkGray };
         header.Controls.Add(new Label
         {
             Text = "How to use in Fusion 360",
             ForeColor = BrandAssets.Yellow,
             Font = new Font("Segoe UI", 18F, FontStyle.Bold),
             AutoSize = true,
-            Location = new Point(30, 24)
+            Location = new Point(30, 21)
         });
 
-        var content = new Panel { Dock = DockStyle.Fill, Padding = new Padding(30), AutoScroll = true };
+        var content = new Panel
+        {
+            Dock = DockStyle.Fill,
+            Padding = new Padding(30),
+            AutoScroll = false
+        };
+
         var intro = new Label
         {
-            Text = "Connect SlicerLauncher to Fusion 360 once, then choose your slicer every time you export a mesh.",
-            Font = new Font("Segoe UI", 9.5F),
+            Text = "Connect SlicerLauncher to Fusion 360 once. After that, every mesh export can open SlicerLauncher and let you choose the slicer you want.",
+            Font = new Font("Segoe UI", 9.25F),
             ForeColor = BrandAssets.DarkGray,
             AutoSize = false,
-            Width = 620,
-            Height = 38,
-            Location = new Point(30, 20)
+            Width = 670,
+            Height = 40,
+            Location = new Point(30, 16)
         };
-        var steps = new Label
+
+        var setupTitle = new Label
         {
-            Text = "1. In Fusion 360, choose Save as Mesh.\n" +
-                   "2. Set Preparation Type to Print Utility.\n" +
-                   "3. Under Output, set Application to Custom.\n" +
-                   "4. Select SlicerLauncher.exe as the custom application.\n" +
-                   "5. Choose STL or 3MF as your export format.\n" +
-                   "6. Click OK. SlicerLauncher opens and lets you choose the slicer.",
-            Font = new Font("Segoe UI", 9.5F),
+            Text = "1. Install the Fusion 360 helper",
+            Font = new Font("Segoe UI", 11F, FontStyle.Bold),
             ForeColor = BrandAssets.DarkGray,
-            AutoSize = false,
-            Width = 620,
-            Height = 155,
-            Location = new Point(30, 68)
-        };
-        var pathTitle = new Label
-        {
-            Text = "Fusion 360 executable",
-            Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
-            ForeColor = BrandAssets.MediumGray,
             AutoSize = true,
-            Location = new Point(30, 236)
+            Location = new Point(30, 64)
         };
-        var fusionAliasPath = System.IO.Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "Microsoft", "WindowsApps", "SlicerLauncher.exe");
 
-        var executablePath = new TextBox
+        var setupButton = new Button
         {
-            ReadOnly = true,
-            Text = fusionAliasPath,
-            Location = new Point(30, 260),
-            Width = 610,
-            Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
-        };
-        var note = new Label
-        {
-            Text = "If Custom is not available, set Preparation Type to Print Utility.\n" +
-                   "Fusion 360 normally remembers the selected custom application for future exports.",
-            Font = new Font("Segoe UI", 8.5F),
-            ForeColor = BrandAssets.MediumGray,
-            AutoSize = false,
-            Width = 610,
-            Height = 48,
-            Location = new Point(30, 304)
-        };
-        content.Controls.Add(intro);
-        content.Controls.Add(steps);
-        content.Controls.Add(pathTitle);
-        content.Controls.Add(executablePath);
-        content.Controls.Add(note);
-
-        var footer = new Panel { Dock = DockStyle.Bottom, Height = 70, BackColor = Color.White };
-        var closeButton = new Button
-        {
-            Text = "Got it",
-            Size = new Size(120, 42),
+            Text = "Set up Fusion 360",
+            Size = new Size(180, 38),
             BackColor = BrandAssets.Yellow,
             ForeColor = BrandAssets.DarkGray,
             FlatStyle = FlatStyle.Flat,
-            Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
+            Font = new Font("Segoe UI", 9.25F, FontStyle.Bold),
+            Cursor = Cursors.Hand,
+            Location = new Point(30, 94)
+        };
+        setupButton.FlatAppearance.BorderSize = 0;
+
+        var statusLabel = new Label
+        {
+            AutoSize = true,
+            Font = new Font("Segoe UI", 8.75F),
+            ForeColor = BrandAssets.MediumGray,
+            Location = new Point(225, 105)
+        };
+
+        var copyTitle = new Label
+        {
+            Text = "2. Copy the folder path",
+            Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+            ForeColor = BrandAssets.DarkGray,
+            AutoSize = true,
+            Location = new Point(30, 148)
+        };
+
+        var copyPathButton = new Button
+        {
+            Text = "Copy Folder Path",
+            Size = new Size(145, 34),
+            BackColor = BrandAssets.Yellow,
+            ForeColor = BrandAssets.DarkGray,
+            FlatStyle = FlatStyle.Flat,
+            Font = new Font("Segoe UI", 8.75F, FontStyle.Bold),
+            Cursor = Cursors.Hand,
+            Location = new Point(30, 178)
+        };
+        copyPathButton.FlatAppearance.BorderSize = 0;
+
+        var folderPath = new TextBox
+        {
+            ReadOnly = true,
+            Text = _installDirectory,
+            Location = new Point(185, 180),
+            Width = 515,
+            Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+        };
+
+        var stepsTitle = new Label
+        {
+            Text = "3. Select it once in Fusion 360",
+            Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+            ForeColor = BrandAssets.DarkGray,
+            AutoSize = true,
+            Location = new Point(30, 232)
+        };
+
+        var steps = new Label
+        {
+            Text = "1. Save as Mesh.\n" +
+                   "2. Preparation Type: Print Utility.\n" +
+                   "3. Application: Custom.\n" +
+                   "4. Click \"Select from my computer...\".\n" +
+                   "5. Paste the copied folder path into the address bar at the top and press Enter.\n" +
+                   "6. Select SlicerLauncher.Fusion.exe and click Open.\n" +
+                   "7. Choose STL or 3MF and click OK.",
+            Font = new Font("Segoe UI", 9.25F),
+            ForeColor = BrandAssets.DarkGray,
+            AutoSize = false,
+            Width = 670,
+            Height = 150,
+            Location = new Point(30, 264)
+        };
+
+        var doneNote = new Label
+        {
+            Text = "Done! Fusion 360 normally remembers the selected application. From now on, SlicerLauncher opens automatically for this Print Utility.",
+            Font = new Font("Segoe UI", 8.9F, FontStyle.Bold),
+            ForeColor = BrandAssets.DarkGray,
+            AutoSize = false,
+            Width = 670,
+            Height = 38,
+            Location = new Point(30, 416)
+        };
+
+        void RefreshStatus()
+        {
+            statusLabel.Text = File.Exists(InstalledBridgePath)
+                ? "Helper installed and ready."
+                : "Helper not installed yet.";
+        }
+
+        setupButton.Click += (_, _) =>
+        {
+            try
+            {
+                if (!File.Exists(SourceBridgePath))
+                {
+                    MessageBox.Show(
+                        "The Fusion 360 helper is missing from this SlicerLauncher build.\n\n" +
+                        SourceBridgePath,
+                        "Fusion 360 Helper Missing",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                Directory.CreateDirectory(_installDirectory);
+                File.Copy(SourceBridgePath, InstalledBridgePath, true);
+                RefreshStatus();
+
+                MessageBox.Show(
+                    "Fusion 360 helper installed successfully.\n\n" +
+                    "Next, copy the folder path in this window. In Fusion 360 choose:\n" +
+                    "Save as Mesh > Print Utility > Custom > Select from my computer...\n\n" +
+                    "Paste the folder path into the address bar at the top and select SlicerLauncher.Fusion.exe.",
+                    "Fusion 360 Setup",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "The Fusion 360 helper could not be installed.\n\n" + ex.Message,
+                    "Fusion 360 Setup",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        };
+
+        copyPathButton.Click += (_, _) =>
+        {
+            try
+            {
+                Clipboard.SetText(_installDirectory);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "The folder path could not be copied.\n\n" + ex.Message,
+                    "Copy Folder Path",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+        };
+
+        RefreshStatus();
+
+        content.Controls.Add(intro);
+        content.Controls.Add(setupTitle);
+        content.Controls.Add(setupButton);
+        content.Controls.Add(statusLabel);
+        content.Controls.Add(copyTitle);
+        content.Controls.Add(copyPathButton);
+        content.Controls.Add(folderPath);
+        content.Controls.Add(stepsTitle);
+        content.Controls.Add(steps);
+        content.Controls.Add(doneNote);
+
+        var footer = new Panel { Dock = DockStyle.Bottom, Height = 64, BackColor = Color.White };
+        var closeButton = new Button
+        {
+            Text = "Got it",
+            Size = new Size(115, 38),
+            BackColor = BrandAssets.Yellow,
+            ForeColor = BrandAssets.DarkGray,
+            FlatStyle = FlatStyle.Flat,
+            Font = new Font("Segoe UI", 9.25F, FontStyle.Bold),
             Anchor = AnchorStyles.Right | AnchorStyles.Bottom
         };
         closeButton.FlatAppearance.BorderSize = 0;
         closeButton.Click += (_, _) => Close();
         footer.Controls.Add(closeButton);
-        footer.Resize += (_, _) => { closeButton.Left = footer.ClientSize.Width - closeButton.Width - 30; closeButton.Top = 14; };
+        footer.Resize += (_, _) =>
+        {
+            closeButton.Left = footer.ClientSize.Width - closeButton.Width - 30;
+            closeButton.Top = 13;
+        };
 
         Controls.Add(content);
         Controls.Add(header);
@@ -1870,7 +2014,7 @@ internal sealed class AboutForm : Form
 
         var version = new Label
         {
-            Text = "Version 1.1.0",
+            Text = "Version 1.1.1",
             Font = new Font("Segoe UI", 9.5F),
             ForeColor = BrandAssets.MediumGray,
             AutoSize = true,

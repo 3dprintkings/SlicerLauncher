@@ -6,4 +6,5 @@
     <Deploy />
   </Project>
   <Project Path="SlicerLauncher/SlicerLauncher.csproj" />
+  <Project Path="SlicerLauncher.Fusion/SlicerLauncher.Fusion.csproj" />
 </Solution>
