@@ -17,7 +17,7 @@
     <Company>3dprintkings</Company>
     <Product>SlicerLauncher</Product>
     <Description>Free and open-source Windows utility for opening STL and 3MF files with the Slicer of your choice, including Fusion 360 Print Utility support.</Description>
-    <Copyright>Copyright Â© 2026 Nino King Â· 3dprintkings</Copyright>
+    <Copyright>Copyright © 2026 Nino King · 3dprintkings</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

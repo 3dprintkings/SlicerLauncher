@@ -28,10 +28,6 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>False</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
-    <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
-    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <AppInstallerUri>C:\SlicerLauncher\SlicerLauncher.Package\AppPackages</AppInstallerUri>
-    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -52,7 +48,7 @@
     <Content Include="Square44x44Logo.png" />
     <Content Include="StoreLogo.png" />
     <Content Include="Wide310x150Logo.png" />
-    <!-- Fusion 360 helper: published before MSIX creation and placed at package root. -->
+    <!-- Fusion 360 helper: published before MSIX creation and included next to the packaged application. -->
     <Content Include="..\SlicerLauncher.Fusion\bin\StorePublish\SlicerLauncher.Fusion.exe">
       <Link>SlicerLauncher\SlicerLauncher.Fusion.exe</Link>
     </Content>
