@@ -6,7 +6,7 @@ SlicerLauncher is a free, open-source Windows utility by 3dprintkings for makers
 
 ## Current release
 
-- Version: **1.1.1**
+- Version: **1.1.2**
 - Framework: **.NET 8 / Windows Forms**
 - Target platform: **Windows x64**
 - License: **GNU General Public License v3.0**
@@ -17,13 +17,11 @@ SlicerLauncher is a free, open-source Windows utility by 3dprintkings for makers
 Microsoft Store:
 https://apps.microsoft.com/detail/9mz8zlfmxrrl
 
-## What's new in 1.1.1
+## What's new in 1.1.2
 
-- Added reliable Fusion 360 integration for the Microsoft Store version
-- Added a dedicated Fusion 360 helper
-- Added guided one-time Fusion 360 setup directly in SlicerLauncher
-- Added Copy Folder Path for easier Fusion 360 configuration
-- Improved STL and 3MF handoff from Fusion 360
+- Fixed the Fusion 360 helper packaging path in the Microsoft Store version
+- Fusion 360 helper setup now works correctly after installation
+- Reliable STL and 3MF handoff from Fusion 360
 
 ## Features
 
@@ -77,7 +75,7 @@ The official distributed binary is the Microsoft Store version.
 
 The Microsoft Store execution alias itself cannot reliably be selected as a custom Print Utility in Fusion 360.
 
-SlicerLauncher 1.1.1 therefore includes a dedicated Fusion 360 helper.
+SlicerLauncher includes a dedicated Fusion 360 helper.
 
 In SlicerLauncher:
 
