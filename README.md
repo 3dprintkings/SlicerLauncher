@@ -6,7 +6,7 @@ SlicerLauncher is a free, open-source Windows utility by 3dprintkings for makers
 
 ## Current release
 
-- Version: **1.1.0**
+- Version: **1.1.1**
 - Framework: **.NET 8 / Windows Forms**
 - Target platform: **Windows x64**
 - License: **GNU General Public License v3.0**
@@ -17,18 +17,13 @@ SlicerLauncher is a free, open-source Windows utility by 3dprintkings for makers
 Microsoft Store:
 https://apps.microsoft.com/detail/9mz8zlfmxrrl
 
-## What's new in 1.1.0
+## What's new in 1.1.1
 
-- Redesigned **Manage Slicers** workflow
-- Drag-and-drop slicer ordering
-- The first Slicer in the list is the default
-- Optional automatic launch of the default Slicer after a configurable countdown
-- Duplicate slicer names and executable paths are prevented
-- Improved Add/Edit Slicer dialogs
-- Improved Fusion 360 setup help
-- Updated application and About branding
-- Flashforge **Flash Studio** automatic detection added
-- UI and layout refinements throughout the application
+- Added reliable Fusion 360 integration for the Microsoft Store version
+- Added a dedicated Fusion 360 helper
+- Added guided one-time Fusion 360 setup directly in SlicerLauncher
+- Added Copy Folder Path for easier Fusion 360 configuration
+- Improved STL and 3MF handoff from Fusion 360
 
 ## Features
 
@@ -42,6 +37,7 @@ https://apps.microsoft.com/detail/9mz8zlfmxrrl
 - Stop the countdown and choose another Slicer
 - Recent files list
 - Microsoft Store / MSIX file association support
+- Guided Fusion 360 setup
 - Settings stored locally in the current user's AppData profile
 
 ## Automatically detected Slicers
@@ -68,42 +64,48 @@ Third-party product names are used only to describe compatibility. SlicerLaunche
 
 From PowerShell:
 
-```powershell
-cd .\SlicerLauncher
-dotnet build -c Release -r win-x64
-```
+    cd .\SlicerLauncher
+    dotnet build -c Release -r win-x64
 
 The compiled application is created under:
 
-```text
-SlicerLauncher\bin\Release\net8.0-windows\win-x64\
-```
+    SlicerLauncher\bin\Release\net8.0-windows\win-x64\
 
 The official distributed binary is the Microsoft Store version.
 
 ## Fusion 360
 
-The Microsoft Store package registers the execution alias:
+The Microsoft Store execution alias itself cannot reliably be selected as a custom Print Utility in Fusion 360.
 
-```text
-%LOCALAPPDATA%\Microsoft\WindowsApps\SlicerLauncher.exe
-```
+SlicerLauncher 1.1.1 therefore includes a dedicated Fusion 360 helper.
 
-In Fusion 360:
+In SlicerLauncher:
+
+1. Open **How to use in Fusion 360**.
+2. Click **Set up Fusion 360**.
+3. Click **Copy Folder Path**.
+
+The helper is installed for the current user under:
+
+    %LOCALAPPDATA%\Programs\SlicerLauncher\SlicerLauncher.Fusion.exe
+
+Then in Fusion 360:
 
 1. Choose **Save as Mesh**.
 2. Set **Preparation Type** to **Print Utility**.
 3. Set **Application** to **Custom**.
-4. Select the SlicerLauncher execution alias shown above.
-5. Choose STL or 3MF and continue the export.
+4. Click **Select from my computer...**.
+5. Paste the copied folder path into the address bar and press Enter.
+6. Select **SlicerLauncher.Fusion.exe**.
+7. Choose STL or 3MF and continue the export.
+
+Fusion 360 normally remembers the selected application after the one-time setup.
 
 ## Settings
 
 Settings are stored in:
 
-```text
-%APPDATA%\SlicerLauncher\settings.json
-```
+    %APPDATA%\SlicerLauncher\settings.json
 
 The application can also migrate the older `config.xml` format if present.
 
